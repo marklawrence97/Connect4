@@ -20,16 +20,16 @@ public abstract class Board {
 
     public String getTurn() {
 /*      This generic function counts the number of player tokens on a 2D board and returns the String value of the
- *      player whose turn is it next.
+ *      player whose turn is it next based on the order of players to act and the number of tokens that are on the board.
  */
         Map<String, Integer> playerTokenCounter = new HashMap<>();
         for (Player player: this.players) {
             playerTokenCounter.put(player.getName(), 0);
         }
 
-        for (int i = 0; i < this.board.length; ++i) {
-            for (int j = 0; j < this.board[0].length; ++j) {
-                String token = this.board[i][j];
+        for (String[] rows : this.board) {
+            for (int col  = 0; col < this.board[0].length; ++col) {
+                String token = rows[col];
                 if (token == null) {
                     continue;
                 }
