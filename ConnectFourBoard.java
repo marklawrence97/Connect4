@@ -3,10 +3,10 @@ import java.util.*;
 public class ConnectFourBoard extends Board {
     private int[] heightOfLowestEmptyCell;
 
-    public ConnectFourBoard(int rows, int cols, List<Player> players) {
-        this.board = new String[rows][cols];
+    public ConnectFourBoard(String[][] board, List<Player> players) {
+        this.board = board;
         this.players = players;
-        this.heightOfLowestEmptyCell = new int[rows];
+        this.heightOfLowestEmptyCell = new int[board.length];
     }
 
     @Override
@@ -26,14 +26,14 @@ public class ConnectFourBoard extends Board {
     }
 
     @Override
-    public void placeCounter(int[] move, String player) {
+    public void placeCounter(int[] move) {
 //          This method takes a move and a player as an input. A counter representing the player is placed on the
 //        lowest available slot in the requested column.
 
         int col = move[0];
         int row = this.board.length - this.heightOfLowestEmptyCell[col] - 1;
 
-        this.board[row][col] = player;
+        this.board[row][col] = this.getTurn().getName();
         this.heightOfLowestEmptyCell[col] += 1;
     }
 

@@ -9,4 +9,6 @@ public abstract class Player {
     public int getPrecedence() {
         return this.precedence;
     }
+
+    abstract int[] getMove(Display display, Board board);
 }

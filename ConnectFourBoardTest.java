@@ -20,7 +20,8 @@ public class ConnectFourBoardTest {
         players.add(player1);
         players.add(player2);
         players.add(player3);
-        board = new ConnectFourBoard(7, 5, players);
+        String[][] newBoard = new String[7][5];
+        board = new ConnectFourBoard(newBoard, players);
     }
 
     @Test
@@ -34,11 +35,10 @@ public class ConnectFourBoardTest {
     }
 
     @Test
-    @DisplayName("Test correct actions when column full")
+    @DisplayName("Test correct actions length when column full")
     public void TestCorrectActionsFullColumn() {
         for (int i = 0; i < 7; ++i) {
-            board.placeCounter(new int[] { 3 }, player1.getName());
-            assertEquals(player1.getName(), board.getBoard()[6 - i][3]);
+            board.placeCounter(new int[] { 3 });
         }
         List<int[]> actions = board.getActions();
         assertEquals(4, actions.size());
@@ -46,137 +46,176 @@ public class ConnectFourBoardTest {
 
     @Test
     @DisplayName("Test place first three counters in same column")
-    public void TestFirstMove() {
-        board.placeCounter(new int[] { 3 }, player1.getName());
+    public void TestFirstFourMoves() {
+        board.placeCounter(new int[] { 3 });
         assertEquals(player1.getName(), board.getBoard()[6][3]);
-        board.placeCounter(new int[] { 3 }, player2.getName());
+        board.placeCounter(new int[] { 3 });
         assertEquals(player2.getName(), board.getBoard()[5][3]);
-        board.placeCounter(new int[] { 3 }, player1.getName());
-        assertEquals(player1.getName(), board.getBoard()[4][3]);
+        board.placeCounter(new int[] { 3 });
+        assertEquals(player3.getName(), board.getBoard()[4][3]);
+        board.placeCounter(new int[] { 3 });
+        assertEquals(player1.getName(), board.getBoard()[3][3]);
     }
 
     @Test
     @DisplayName("Test get turn on empty board")
     public void TestGetTurnEmptyBoard() {
-        assertEquals("M", board.getTurn());
+        assertEquals(player1.getName(), board.getTurn().getName());
     }
 
     @Test
     @DisplayName("Test get turn on empty board")
     public void TestGetSecondMove() {
-        board.placeCounter(new int[] { 3 }, player1.getName());
-        assertEquals(player2.getName(), board.getTurn());
+        board.placeCounter(new int[] { 3 });
+        assertEquals(player2.getName(), board.getTurn().getName());
     }
 
     @Test
     @DisplayName("Test get turn on empty board")
     public void TestGetThirdMove() {
-        board.placeCounter(new int[] { 3 }, player1.getName());
-        board.placeCounter(new int[] { 3 }, player2.getName());
-        assertEquals(player3.getName(), board.getTurn());
+        board.placeCounter(new int[] { 3 });
+        board.placeCounter(new int[] { 3 });
+        assertEquals(player3.getName(), board.getTurn().getName());
     }
 
     @Test
     @DisplayName("Test get turn on empty board")
     public void TestGetFourthMove() {
-        board.placeCounter(new int[] { 3 }, player1.getName());
-        board.placeCounter(new int[] { 3 }, player2.getName());
-        board.placeCounter(new int[] { 3 }, player3.getName());
-        assertEquals(player1.getName(), board.getTurn());
+        board.placeCounter(new int[] { 3 });
+        board.placeCounter(new int[] { 3 });
+        board.placeCounter(new int[] { 3 });
+        assertEquals(player1.getName(), board.getTurn().getName());
     }
 
     @Test
     @DisplayName("Test Vertical Win Final Column")
     public void TestVerticalWinFinalColumn() {
-        board.placeCounter(new int[] { 4 }, player1.getName());
-        board.placeCounter(new int[] { 4 }, player1.getName());
-        board.placeCounter(new int[] { 4 }, player1.getName());
-        board.placeCounter(new int[] { 4 }, player1.getName());
-        assertEquals(player1.getName(), board.getWinner());
+        String[][] newBoard = new String[][] {
+            {null, null, null, null, null},
+            {null, null, null, null, player1.getName()},
+            {null, null, null, null, player1.getName()},
+            {null, null, null, null, player1.getName()},
+            {null, null, null, null, player1.getName()}
+        };
+
+        Board verticalWin = new ConnectFourBoard(newBoard, players);
+        assertEquals(player1.getName(), verticalWin.getWinner());
     }
 
     @Test
     @DisplayName("Test No Win Final Column")
     public void TestNoWinWinFinalColumn() {
-        board.placeCounter(new int[] { 4 }, player1.getName());
-        board.placeCounter(new int[] { 4 }, player1.getName());
-        board.placeCounter(new int[] { 4 }, player2.getName());
-        board.placeCounter(new int[] { 4 }, player1.getName());
-        assertEquals(null, board.getWinner());
+        String[][] newBoard = new String[][] {
+                {null, null, null, null, null},
+                {null, null, null, null, player1.getName()},
+                {null, null, null, null, player2.getName()},
+                {null, null, null, null, player1.getName()},
+                {null, null, null, null, player1.getName()}
+        };
+
+        Board verticalNoWin = new ConnectFourBoard(newBoard, players);
+        assertEquals(null, verticalNoWin.getWinner());
     }
 
     @Test
     @DisplayName("Test Vertical Win First Column")
     public void TestVerticalWinFirstColumn() {
-        board.placeCounter(new int[] { 0 }, player1.getName());
-        board.placeCounter(new int[] { 0 }, player1.getName());
-        board.placeCounter(new int[] { 0 }, player1.getName());
-        board.placeCounter(new int[] { 0 }, player1.getName());
-        assertEquals(player1.getName(), board.getWinner());
+        String[][] newBoard = new String[][] {
+                {null, null, null, null, null},
+                {player2.getName(), null, null, null, player1.getName()},
+                {player2.getName(), null, null, null, player2.getName()},
+                {player2.getName(), null, null, null, player1.getName()},
+                {player2.getName(), null, null, null, player1.getName()}
+        };
+
+        Board verticalWin = new ConnectFourBoard(newBoard, players);
+        assertEquals(player2.getName(), verticalWin.getWinner());
     }
 
     @Test
     @DisplayName("Test Horizontal Win First Row")
     public void TestHorizontalWinFirstRow() {
-        placeInEachRowFromStartCol(player1);
+        String[][] newBoard = new String[][] {
+                {null, null, null, null, null},
+                {player2.getName(), null, null, null, player1.getName()},
+                {player2.getName(), null, null, null, player2.getName()},
+                {player2.getName(), null, null, null, player1.getName()},
+                {player1.getName(), player1.getName(), player1.getName(), player1.getName(), player1.getName()}
+        };
+        Board horizontalWin = new ConnectFourBoard(newBoard, players);
+        assertEquals(player1.getName(), horizontalWin.getWinner());
     }
 
     @Test
     @DisplayName("Test Right Diagonal Win")
     public void TestRightDiagonal() {
-        board.placeCounter(new int[] { 0 }, player2.getName());
-        board.placeCounter(new int[] { 0 }, player2.getName());
-        board.placeCounter(new int[] { 0 }, player2.getName());
-        board.placeCounter(new int[] { 1 }, player2.getName());
-        board.placeCounter(new int[] { 1 }, player2.getName());
-        board.placeCounter(new int[] { 2 }, player2.getName());
-        placeInEachRowFromStartCol(player1);
+        String[][] newBoard = new String[][]{
+                {null, null, null, null, null},
+                {player3.getName(), null, null, null, player1.getName()},
+                {player2.getName(), player3.getName(), null, null, player2.getName()},
+                {player2.getName(), null, player3.getName(), null, player1.getName()},
+                {player1.getName(), player1.getName(), player1.getName(), player3.getName(), player1.getName()}
+        };
+
+        Board rightDiagonalWin = new ConnectFourBoard(newBoard, players);
+        assertEquals(player3.getName(), rightDiagonalWin.getWinner());
     }
 
     @Test
     @DisplayName("Test Left Diagonal Win")
     public void TestLeftDiagonal() {
-        board.placeCounter(new int[] { 1 }, player2.getName());
-        board.placeCounter(new int[] { 2 }, player2.getName());
-        board.placeCounter(new int[] { 2 }, player2.getName());
-        board.placeCounter(new int[] { 3 }, player2.getName());
-        board.placeCounter(new int[] { 3 }, player2.getName());
-        board.placeCounter(new int[] { 3 }, player2.getName());
-        placeInEachRowFromStartCol(player1);
+        String[][] newBoard = new String[][]{
+                {null, null, null, null, null},
+                {player3.getName(), null, null, null, player1.getName()},
+                {player2.getName(), player3.getName(), null, player1.getName(), player2.getName()},
+                {player2.getName(), null, player1.getName(), null, player1.getName()},
+                {player1.getName(), player1.getName(), player1.getName(), player3.getName(), player1.getName()}
+        };
+
+        Board leftDiagonalWin = new ConnectFourBoard(newBoard, players);
+        assertEquals(player1.getName(), leftDiagonalWin.getWinner());
     }
 
     @Test
     @DisplayName("Test is terminal when game is not over")
     public void TestIsTerminalNotOver() {
-        board.placeCounter(new int[] { 2 }, player2.getName());
-        board.placeCounter(new int[] { 2 }, player3.getName());
-        board.placeCounter(new int[] { 2 }, player1.getName());
-        assertFalse(board.isTerminal());
+        String[][] newBoard = new String[][]{
+                {null, null, null, null, null},
+                {player3.getName(), null, null, null, player1.getName()},
+                {player2.getName(), player3.getName(), null, player1.getName(), player2.getName()},
+                {player2.getName(), null, player1.getName(), null, player1.getName()},
+                {player1.getName(), player2.getName(), player1.getName(), player3.getName(), player1.getName()}
+        };
+        Board gameNotOver = new ConnectFourBoard(newBoard, players);
+        assertFalse(gameNotOver.isTerminal());
     }
 
     @Test
     @DisplayName("Test is terminal when game is over with a winner")
     public void TestIsTerminalOver() {
-        placeInEachRowFromStartCol(player1);
-        assertTrue(board.isTerminal());
+        String[][] newBoard = new String[][]{
+                {null, null, null, null, null},
+                {player2.getName(), null, null, null, player1.getName()},
+                {player2.getName(), player3.getName(), null, player1.getName(), player2.getName()},
+                {player2.getName(), null, player1.getName(), null, player1.getName()},
+                {player2.getName(), player2.getName(), player1.getName(), player3.getName(), player1.getName()}
+        };
+
+        Board gameOverWithWin = new ConnectFourBoard(newBoard, players);
+        assertTrue(gameOverWithWin.isTerminal());
     }
 
     @Test
     @DisplayName("Test is terminal when game is over no winner")
     public void TestIsTerminalOverNoWinner() {
-        Board smallBoard = new ConnectFourBoard(2, 2, players);
-        smallBoard.placeCounter(new int[] { 0 }, player1.getName());
-        smallBoard.placeCounter(new int[] { 0 }, player1.getName());
-        smallBoard.placeCounter(new int[] { 1 }, player1.getName());
-        smallBoard.placeCounter(new int[] { 1 }, player1.getName());
+        String[][] newBoard = new String[][] {
+                {player2.getName(), player3.getName(), player1.getName()},
+                {player2.getName(), player3.getName(), player1.getName()},
+                {player2.getName(), player3.getName(), player1.getName()}
+        };
+        Board smallBoard = new ConnectFourBoard(newBoard, players);
+
         assertTrue(smallBoard.isTerminal());
     }
 
-    private void placeInEachRowFromStartCol(Player player) {
-        board.placeCounter(new int[] { 0 }, player.getName());
-        board.placeCounter(new int[] { 1 }, player.getName());
-        board.placeCounter(new int[] { 2 }, player.getName());
-        board.placeCounter(new int[] { 3 }, player.getName());
-        assertEquals(player.getName(), board.getWinner());
-    }
 }

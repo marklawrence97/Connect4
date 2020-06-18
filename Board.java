@@ -10,7 +10,7 @@ public abstract class Board {
 
     public abstract List<int[]> getActions();
 
-    public abstract void placeCounter(int[] move, String player);
+    public abstract void placeCounter(int[] move);
 
     public abstract boolean isTerminal();
 
@@ -18,7 +18,7 @@ public abstract class Board {
 
     public abstract int utility(String player);
 
-    public String getTurn() {
+    public Player getTurn() {
 /*      This generic function counts the number of player tokens on a 2D board and returns the String value of the
  *      player whose turn is it next based on the order of players to act and the number of tokens that are on the board.
  */
@@ -45,10 +45,10 @@ public abstract class Board {
             String player = players.get(i).getName();
             String lowerPrecedencePlayer = players.get(i + 1).getName();
             if (playerTokenCounter.get(player) > playerTokenCounter.get(lowerPrecedencePlayer)) {
-                return lowerPrecedencePlayer;
+                return players.get(i + 1);
             }
         }
 
-        return players.get(0).getName();
+        return players.get(0);
     }
 }
