@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ConnectFourBoardTest {
+public class ConnectNBoardTest {
     Board board;
     Player player3 = new HumanPlayer("O", 3);
     Player player1 = new HumanPlayer("M", 1);
@@ -21,7 +21,7 @@ public class ConnectFourBoardTest {
         players.add(player2);
         players.add(player3);
         String[][] newBoard = new String[7][5];
-        board = new ConnectFourBoard(newBoard, players);
+        board = new ConnectNBoard(newBoard, players, 4);
     }
 
     @Test
@@ -48,13 +48,13 @@ public class ConnectFourBoardTest {
     @DisplayName("Test place first three counters in same column")
     public void TestFirstFourMoves() {
         board.placeCounter(new int[] { 3 });
-        assertEquals(player1.getName(), board.getBoard()[6][3]);
+        assertEquals(player1.getName(), board.getBoardValue()[6][3]);
         board.placeCounter(new int[] { 3 });
-        assertEquals(player2.getName(), board.getBoard()[5][3]);
+        assertEquals(player2.getName(), board.getBoardValue()[5][3]);
         board.placeCounter(new int[] { 3 });
-        assertEquals(player3.getName(), board.getBoard()[4][3]);
+        assertEquals(player3.getName(), board.getBoardValue()[4][3]);
         board.placeCounter(new int[] { 3 });
-        assertEquals(player1.getName(), board.getBoard()[3][3]);
+        assertEquals(player1.getName(), board.getBoardValue()[3][3]);
     }
 
     @Test
@@ -98,7 +98,7 @@ public class ConnectFourBoardTest {
             {null, null, null, null, player1.getName()}
         };
 
-        Board verticalWin = new ConnectFourBoard(newBoard, players);
+        Board verticalWin = new ConnectNBoard(newBoard, players, 4);
         assertEquals(player1.getName(), verticalWin.getWinner());
     }
 
@@ -113,8 +113,8 @@ public class ConnectFourBoardTest {
                 {null, null, null, null, player1.getName()}
         };
 
-        Board verticalNoWin = new ConnectFourBoard(newBoard, players);
-        assertEquals(null, verticalNoWin.getWinner());
+        Board verticalNoWin = new ConnectNBoard(newBoard, players, 4);
+        assertNull(verticalNoWin.getWinner());
     }
 
     @Test
@@ -128,7 +128,7 @@ public class ConnectFourBoardTest {
                 {player2.getName(), null, null, null, player1.getName()}
         };
 
-        Board verticalWin = new ConnectFourBoard(newBoard, players);
+        Board verticalWin = new ConnectNBoard(newBoard, players, 4);
         assertEquals(player2.getName(), verticalWin.getWinner());
     }
 
@@ -142,7 +142,7 @@ public class ConnectFourBoardTest {
                 {player2.getName(), null, null, null, player1.getName()},
                 {player1.getName(), player1.getName(), player1.getName(), player1.getName(), player1.getName()}
         };
-        Board horizontalWin = new ConnectFourBoard(newBoard, players);
+        Board horizontalWin = new ConnectNBoard(newBoard, players, 4);
         assertEquals(player1.getName(), horizontalWin.getWinner());
     }
 
@@ -157,7 +157,7 @@ public class ConnectFourBoardTest {
                 {player1.getName(), player1.getName(), player1.getName(), player3.getName(), player1.getName()}
         };
 
-        Board rightDiagonalWin = new ConnectFourBoard(newBoard, players);
+        Board rightDiagonalWin = new ConnectNBoard(newBoard, players, 4);
         assertEquals(player3.getName(), rightDiagonalWin.getWinner());
     }
 
@@ -172,7 +172,7 @@ public class ConnectFourBoardTest {
                 {player1.getName(), player1.getName(), player1.getName(), player3.getName(), player1.getName()}
         };
 
-        Board leftDiagonalWin = new ConnectFourBoard(newBoard, players);
+        Board leftDiagonalWin = new ConnectNBoard(newBoard, players, 4);
         assertEquals(player1.getName(), leftDiagonalWin.getWinner());
     }
 
@@ -186,7 +186,7 @@ public class ConnectFourBoardTest {
                 {player2.getName(), null, player1.getName(), null, player1.getName()},
                 {player1.getName(), player2.getName(), player1.getName(), player3.getName(), player1.getName()}
         };
-        Board gameNotOver = new ConnectFourBoard(newBoard, players);
+        Board gameNotOver = new ConnectNBoard(newBoard, players, 4);
         assertFalse(gameNotOver.isTerminal());
     }
 
@@ -201,7 +201,7 @@ public class ConnectFourBoardTest {
                 {player2.getName(), player2.getName(), player1.getName(), player3.getName(), player1.getName()}
         };
 
-        Board gameOverWithWin = new ConnectFourBoard(newBoard, players);
+        Board gameOverWithWin = new ConnectNBoard(newBoard, players, 4);
         assertTrue(gameOverWithWin.isTerminal());
     }
 
@@ -213,7 +213,7 @@ public class ConnectFourBoardTest {
                 {player2.getName(), player3.getName(), player1.getName()},
                 {player2.getName(), player3.getName(), player1.getName()}
         };
-        Board smallBoard = new ConnectFourBoard(newBoard, players);
+        Board smallBoard = new ConnectNBoard(newBoard, players, 4);
 
         assertTrue(smallBoard.isTerminal());
     }

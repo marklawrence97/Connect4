@@ -6,6 +6,6 @@ public class HumanPlayer extends Player {
     }
 
     public int[] getMove(Display display, Board board) {
-        return display.getMove(board.getBoard(), this.name);
+        return display.getMove(board.getBoardValue(), this.name);
     }
 }

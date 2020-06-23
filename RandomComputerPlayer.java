@@ -1,9 +1,9 @@
 import java.util.List;
 import java.util.Random;
 
-public class ComputerPlayer extends Player {
+public class RandomComputerPlayer extends Player {
 
-    public ComputerPlayer(String name, int precedence) {
+    public RandomComputerPlayer(String name, int precedence) {
         this.name = name;
         this.precedence = precedence;
     }
@@ -14,7 +14,7 @@ public class ComputerPlayer extends Player {
 
         display.printMessage("Computer thinking...");
         try {
-            Thread.sleep(300);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

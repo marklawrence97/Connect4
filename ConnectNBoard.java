@@ -1,12 +1,22 @@
 import java.util.*;
 
-public class ConnectFourBoard extends Board {
-    private int[] heightOfLowestEmptyCell;
+public class ConnectNBoard extends Board {
+    private final int[] heightOfLowestEmptyCell;
+    private final int N;
 
-    public ConnectFourBoard(String[][] board, List<Player> players) {
+    public ConnectNBoard(String[][] board, List<Player> players, int N) {
         this.board = board;
         this.players = players;
+        this.N = N;
         this.heightOfLowestEmptyCell = new int[board.length];
+        for (int col = 0; col < board[0].length; ++col) {
+            for (int row = this.board.length - 1; row >= 0; --row) {
+                if (board[row][col] == null) {
+                    this.heightOfLowestEmptyCell[col] = this.board.length - row - 1;
+                    break;
+                }
+            }
+        }
     }
 
     @Override
@@ -60,11 +70,11 @@ public class ConnectFourBoard extends Board {
     public String getWinner() {
         int boardHeight = this.board.length;
         int boardWidth = this.board[0].length;
-
+        int N = this.N;
         boolean[][] visited = new boolean[boardHeight][boardWidth];
 
 //      Check Vertical
-        for (int row = 0; row < boardHeight - 3; ++row) {
+        for (int row = 0; row < boardHeight - N + 1; ++row) {
             for (int col = 0; col < boardWidth; ++col) {
 
                 int count = 1;
@@ -78,7 +88,7 @@ public class ConnectFourBoard extends Board {
                         currentRow += 1;
                         count += 1;
                         visited[currentRow][col] = true;
-                        if (count >= 4) {
+                        if (count >= N) {
                             return currentToken;
                         }
                     }
@@ -90,7 +100,7 @@ public class ConnectFourBoard extends Board {
 //      Check Horizontal
         visited = new boolean[boardHeight][boardWidth];
         for (int row = 0; row < boardHeight; ++row) {
-            for (int col = 0; col < boardWidth - 3; ++col) {
+            for (int col = 0; col < boardWidth - N + 1; ++col) {
 
                 int count = 1;
                 String currentToken = this.board[row][col];
@@ -103,7 +113,7 @@ public class ConnectFourBoard extends Board {
                         currentCol += 1;
                         count += 1;
                         visited[row][currentCol] = true;
-                        if (count >= 4) {
+                        if (count >= N) {
                             return currentToken;
                         }
                     }
@@ -115,8 +125,8 @@ public class ConnectFourBoard extends Board {
 
 //      Check right diagonal
         visited = new boolean[boardHeight][boardWidth];
-        for (int row = 0; row < boardHeight - 3; ++row) {
-            for (int col = 0; col < boardWidth - 3; ++col) {
+        for (int row = 0; row < boardHeight - N + 1; ++row) {
+            for (int col = 0; col < boardWidth - N + 1; ++col) {
                 int count = 1;
                 String currentToken = this.board[row][col];
                 int currentCol = col;
@@ -128,7 +138,7 @@ public class ConnectFourBoard extends Board {
                         currentRow += 1;
                         count += 1;
                         visited[currentRow][currentCol] = true;
-                        if (count >= 4) {
+                        if (count >= N) {
                             return currentToken;
                         }
                     }
@@ -138,7 +148,7 @@ public class ConnectFourBoard extends Board {
 
 //      Check left diagonal
         visited = new boolean[boardHeight][boardWidth];
-        for (int row = 0; row < boardHeight - 3; ++row) {
+        for (int row = 0; row < boardHeight - N + 1; ++row) {
             for (int col = 3; col < boardWidth; ++col) {
                 int count = 1;
                 String currentToken = this.board[row][col];
@@ -151,7 +161,7 @@ public class ConnectFourBoard extends Board {
                         currentRow += 1;
                         count += 1;
                         visited[currentRow][currentCol] = true;
-                        if (count >= 4) {
+                        if (count >= N) {
                             return currentToken;
                         }
                     }

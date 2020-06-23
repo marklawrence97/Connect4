@@ -1,11 +1,21 @@
 import java.util.*;
 
 public abstract class Board {
-    String[][] board;
-    List<Player> players;
+    protected String[][] board;
+    protected List<Player> players;
 
-    String[][] getBoard() {
-        return board;
+    public String[][] getBoardValue() {
+        String[][] boardValue = new String[this.board.length][this.board[0].length];
+        for (int row = 0; row < this.board.length; ++row) {
+            for (int col = 0; col < this.board[0].length; ++col) {
+                boardValue[row][col] = this.board[row][col];
+            }
+        }
+        return boardValue;
+    }
+
+    public List<Player> getPlayers() {
+        return this.players;
     }
 
     public abstract List<int[]> getActions();
