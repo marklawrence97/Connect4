@@ -5,4 +5,6 @@ public abstract class Display {
     public abstract void printMessage(String message);
 
     public abstract int[] getMove(String[][] board, String player);
+
+    public abstract boolean isPlayAgain();
 }

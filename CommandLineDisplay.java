@@ -15,6 +15,22 @@ public class CommandLineDisplay extends Display {
     }
 
     @Override
+    public boolean isPlayAgain() {
+        /* This method returns true if the user would like to play again, and false if not.
+         */
+
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
+
+        do {
+            System.out.println("Would you like to play again? (y/n)");
+            userInput = scanner.nextLine();
+        } while(!userInput.matches("[yY]|[nN]|[qQ]"));
+
+        return userInput.matches("[yY]");
+    }
+
+    @Override
     public void displayBoard(String[][] board) {
         System.out.println();
 

@@ -17,6 +17,7 @@ public class EasyComputerPlayer extends Player {
             moveScores.put(move, 0);
             Board connectFourBoard = new ConnectNBoard(board.getBoardValue(), board.getPlayers(), 4);
             connectFourBoard.placeCounter(move);
+
             if (connectFourBoard.utility(this.name) == 1) {
                 return move;
             }
