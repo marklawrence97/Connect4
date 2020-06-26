@@ -9,11 +9,6 @@ public class CommandLineDisplay extends Display {
     a user.
      */
 
-    public CommandLineDisplay() {
-        System.out.println("Welcome to connect 4");
-        System.out.println();
-    }
-
     @Override
     public boolean isPlayAgain() {
         /* This method returns true if the user would like to play again, and false if not.
@@ -46,7 +41,7 @@ public class CommandLineDisplay extends Display {
 
         System.out.print("  ");
 
-        for (int i = 0; i < board.length; ++i) {
+        for (int i = 0; i < board.length - 1; ++i) {
             System.out.print(" " + i + "  ");
         }
         System.out.println();
@@ -99,7 +94,7 @@ public class CommandLineDisplay extends Display {
         int col = numbers.get(0);
         int row = 0;
 
-        if (col > board[0].length || col < 0 || row > board.length || row < 0) {
+        if (col > board[0].length - 1 || col < 0) {
             System.out.println("Oops... that number isn't on the board!");
             return false;
         }

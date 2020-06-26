@@ -7,9 +7,7 @@ public abstract class Board {
     public String[][] getBoardValue() {
         String[][] boardValue = new String[this.board.length][this.board[0].length];
         for (int row = 0; row < this.board.length; ++row) {
-            for (int col = 0; col < this.board[0].length; ++col) {
-                boardValue[row][col] = this.board[row][col];
-            }
+            System.arraycopy(this.board[row], 0, boardValue[row], 0, this.board[0].length);
         }
         return boardValue;
     }
@@ -49,7 +47,7 @@ public abstract class Board {
             }
         }
 
-        Collections.sort(players, Comparator.comparingInt(Player::getPrecedence));
+        players.sort(Comparator.comparingInt(Player::getPrecedence));
 
         for (int i = 0; i < players.size() - 1; ++i) {
             String player = players.get(i).getName();

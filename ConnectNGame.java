@@ -14,24 +14,24 @@ public class ConnectNGame {
 //      TODO logic to get number of players from display
 
         Player human = new HumanPlayer("R", 1);
-        Player computer1 = new RandomComputerPlayer("Y", 2);
-        Player computer2 = new RandomComputerPlayer("B", 3);
+        Player computer1 = new EasyComputerPlayer("Y", 2);
+        Player computer2 = new EasyComputerPlayer("B", 3);
 
         List<Player> players = new ArrayList<>();
         players.add(human);
         players.add(computer1);
         players.add(computer2);
-        Board board = new ConnectNBoard(new String[7][6], players, N);
-        this.board = board;
+        this.board = new ConnectNBoard(new String[7][6], players, N);
         this.display = display;
     }
 
     public void playGame() {
-        while (!this.board.isTerminal()) {
+        this.display.displayBoard(this.board.getBoardValue());
+        do {
             Player player = this.board.getTurn();
             this.board.placeCounter(player.getMove(this.display, this.board));
             this.display.displayBoard(this.board.getBoardValue());
-        }
+        } while ((!this.board.isTerminal()));
         display.printMessage(String.format("The winner of the game was %s", board.getWinner()));
     }
 }

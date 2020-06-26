@@ -6,18 +6,19 @@ public class Main {
         try {
             N = Integer.parseInt(args[0]);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("You must enter N as a command line argument");
+            display.printMessage("You must enter N as a command line argument");
             return;
         } catch (NumberFormatException e) {
-            System.out.println("N must be an integer");
+            display.printMessage("N must be an integer");
             return;
         }
 
         if (N < 3 || N > 6) {
-            System.out.println("N must be in the interval (2, 7) / [3, 6]");
+            display.printMessage("N must be in the interval (2, 7) / [3, 6]");
             return;
         }
 
+        display.printMessage(String.format("Welcome to connect %d", N));
         do {
         ConnectNGame connectNGame = new ConnectNGame(N, display);
         connectNGame.playGame();
