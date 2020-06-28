@@ -12,10 +12,6 @@ public abstract class Board {
         return boardValue;
     }
 
-    public List<Player> getPlayers() {
-        return this.players;
-    }
-
     public abstract List<int[]> getActions();
 
     public abstract void placeCounter(int[] move);
@@ -23,8 +19,6 @@ public abstract class Board {
     public abstract boolean isTerminal();
 
     public abstract String getWinner();
-
-    public abstract int utility(String player);
 
     public Player getTurn() {
 /*      This generic function counts the number of player tokens on a 2D board and returns the String value of the

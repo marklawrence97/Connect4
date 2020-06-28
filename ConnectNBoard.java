@@ -171,15 +171,4 @@ public class ConnectNBoard extends Board {
 
         return null;
     }
-
-    @Override
-    public int utility(String player) {
-/*      This method takes an argument of the string value of a player. If this player has won the game it returns
- *      1, 0 for neutral and -1 for losing, this gives a computer player a potential way of quantifying the
- *      strength of a move.
- */
-
-        String winner = this.getWinner();
-        return (Objects.equals(winner, player)) ? 1 : winner == null ? 0 : -1;
-    }
 }
