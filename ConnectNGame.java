@@ -1,7 +1,6 @@
-import java.util.ArrayList;
 import java.util.List;
 
-public class ConnectNGame {
+public class ConnectNGame implements Game {
     Display display;
     Board board;
 
@@ -11,16 +10,7 @@ public class ConnectNGame {
             return;
         }
 
-//      TODO logic to get number of players from display
-
-        Player human = new HumanPlayer("R", 1);
-        Player computer1 = new EasyComputerPlayer("Y", 2);
-        Player computer2 = new EasyComputerPlayer("B", 3);
-
-        List<Player> players = new ArrayList<>();
-        players.add(human);
-        players.add(computer1);
-        players.add(computer2);
+        List<Player> players = display.getPlayers();
         this.board = new ConnectNBoard(new String[7][6], players, N);
         this.display = display;
     }

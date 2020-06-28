@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CommandLineDisplay extends Display {
+public class CommandLineDisplay implements Display {
     /* The Display class acts as the UI. It is responsible for displaying information and receiving input from
     a user.
      */
@@ -45,6 +45,49 @@ public class CommandLineDisplay extends Display {
             System.out.print(" " + i + "  ");
         }
         System.out.println();
+    }
+
+    @Override
+    public List<Player> getPlayers() {
+//      This method retrieves integer input from the player and then configures the settings of the game.
+
+        System.out.println();
+        System.out.println("Game settings:");
+        System.out.println("1. Human vs Human");
+        System.out.println("2. Human vs Computer");
+        System.out.println("3. Human vs Computer vs Computer");
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
+        do {
+            System.out.println("Please enter either 1,2 or 3 to select which game type you would like to play");
+            userInput = scanner.nextLine();
+        } while (!userInput.matches("[123]"));
+
+        switch (userInput) {
+            case "1":
+                Player player1 = new HumanPlayer("R", 1);
+                Player player2 = new HumanPlayer("Y", 2);
+                List<Player> players = new ArrayList<>();
+                players.add(player1);
+                players.add(player2);
+                return players;
+            case "2":
+                player1 = new HumanPlayer("R", 1);
+                player2 = new RandomComputerPlayer("Y", 2);
+                players = new ArrayList<>();
+                players.add(player1);
+                players.add(player2);
+                return players;
+            default:
+                player1 = new HumanPlayer("R", 1);
+                player2 = new RandomComputerPlayer("Y", 2);
+                Player player3 = new RandomComputerPlayer("Y", 2);
+                players = new ArrayList<>();
+                players.add(player1);
+                players.add(player2);
+                players.add(player3);
+                return players;
+        }
     }
 
     @Override

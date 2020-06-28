@@ -1,10 +1,14 @@
-public abstract class Display {
+import java.util.List;
 
-    public abstract void displayBoard(String[][] board);
+public interface Display {
 
-    public abstract void printMessage(String message);
+    void displayBoard(String[][] board);
 
-    public abstract int[] getMove(String[][] board, String player);
+    void printMessage(String message);
 
-    public abstract boolean isPlayAgain();
+    int[] getMove(String[][] board, String player);
+
+    List<Player> getPlayers();
+
+    boolean isPlayAgain();
 }

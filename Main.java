@@ -20,7 +20,7 @@ public class Main {
 
         display.printMessage(String.format("Welcome to connect %d", N));
         do {
-        ConnectNGame connectNGame = new ConnectNGame(N, display);
+        Game connectNGame = new ConnectNGame(N, display);
         connectNGame.playGame();
         } while (display.isPlayAgain());
     }
