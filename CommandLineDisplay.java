@@ -81,7 +81,7 @@ public class CommandLineDisplay implements Display {
             default:
                 player1 = new HumanPlayer("R", 1);
                 player2 = new RandomComputerPlayer("Y", 2);
-                Player player3 = new RandomComputerPlayer("Y", 2);
+                Player player3 = new RandomComputerPlayer("B", 3);
                 players = new ArrayList<>();
                 players.add(player1);
                 players.add(player2);
