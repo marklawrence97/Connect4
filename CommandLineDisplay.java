@@ -20,7 +20,7 @@ public class CommandLineDisplay implements Display {
         do {
             System.out.println("Would you like to play again? (y/n)");
             userInput = scanner.nextLine();
-        } while(!userInput.matches("[yY]|[nN]|[qQ]"));
+        } while(!userInput.matches("[yY]|[nN]"));
 
         return userInput.matches("[yY]");
     }

@@ -4,14 +4,6 @@ public abstract class Board {
     protected String[][] board;
     protected List<Player> players;
 
-    public String[][] getBoardValue() {
-        String[][] boardValue = new String[this.board.length][this.board[0].length];
-        for (int row = 0; row < this.board.length; ++row) {
-            System.arraycopy(this.board[row], 0, boardValue[row], 0, this.board[0].length);
-        }
-        return boardValue;
-    }
-
     public abstract List<int[]> getActions();
 
     public abstract void placeCounter(int[] move);
@@ -19,6 +11,16 @@ public abstract class Board {
     public abstract boolean isTerminal();
 
     public abstract String getWinner();
+
+    public String[][] getBoardValue() {
+//      This method returns a two dimensional array of strings that represents the current value of the board.
+
+        String[][] boardValue = new String[this.board.length][this.board[0].length];
+        for (int row = 0; row < this.board.length; ++row) {
+            System.arraycopy(this.board[row], 0, boardValue[row], 0, this.board[0].length);
+        }
+        return boardValue;
+    }
 
     public Player getTurn() {
 /*      This generic function counts the number of player tokens on a 2D board and returns the String value of the
